@@ -1279,6 +1279,18 @@ PrefabInstance:
       propertyPath: m_AngularSpeed
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 6418431711340059514, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
+      propertyPath: _weaponRange
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6418431711340059514, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
+      propertyPath: _weaponDamage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6418431711340059514, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
+      propertyPath: _timeBetweenAttacks
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7924023251329318020, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
       propertyPath: m_Name
       value: Player
