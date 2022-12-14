@@ -12,12 +12,15 @@ namespace RPG.Core
 
             if(_currentAction != null)
             {
-                print("Canceling: " + _currentAction);
-                print("action: " + action);
                 _currentAction.Cancel();
             }
             _currentAction = action;
 
+        }
+
+        public void CancelCurrentAction()
+        {
+            StartAction(null);
         }
     }
 }

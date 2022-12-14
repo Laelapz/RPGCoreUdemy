@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
+using RPG.Core;
 
 namespace RPG.Control
 {
@@ -10,16 +11,20 @@ namespace RPG.Control
     {
         [SerializeField] private Mover _mover;
         [SerializeField] private Fighter _fighter;
+        private Health _health;
 
         private Camera _mainCamera;
 
         private void Start()
         {
             _mainCamera = Camera.main;
+            _health = GetComponent<Health>();
         }
 
         private void Update()
         {
+            if (_health.IsDead()) return;
+
             if (InteractWithCombat()) return;
 
             if(InteractWithMovement()) return;
@@ -34,13 +39,14 @@ namespace RPG.Control
             foreach (RaycastHit hit in hits)
             {
                 CombatTarget combatTargetScript = hit.collider.GetComponent<CombatTarget>();
+                if (combatTargetScript == null) continue;
 
-                if (combatTargetScript == null)
-                    continue;
+                if (!_fighter.CanAttack(combatTargetScript.gameObject)) continue;
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    _fighter.Attack(combatTargetScript);
+
+                    _fighter.Attack(combatTargetScript.gameObject);
                 }
                 return true;
             }

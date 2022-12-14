@@ -13,10 +13,10 @@ namespace RPG.Combat
         private ActionScheduler _actionScheduler;
         private Animator _animator;
 
-        private Transform _target;
+        private Health _target;
         private Mover _mover;
 
-        private float _timeSinceLastAttack = 0f;
+        private float _timeSinceLastAttack = Mathf.Infinity;
 
         private void Start()
         {
@@ -30,10 +30,11 @@ namespace RPG.Combat
             _timeSinceLastAttack += Time.deltaTime;
 
             if (_target == null) return;
+            if (_target.IsDead()) return;
 
             if (!GetIsInRange())
             {
-                _mover.MoveTo(_target.position);
+                _mover.MoveTo(_target.transform.position);
             }
             else
             {
@@ -42,37 +43,58 @@ namespace RPG.Combat
             }
         }
 
+        public bool CanAttack(GameObject combatTarget)
+        {
+            if (combatTarget == null) return false;
+
+            Health _healthScript = combatTarget.GetComponent<Health>();
+            return (_healthScript != null && !_healthScript.IsDead());
+        }
+
         private void AttackBehaviour()
         {
+            transform.LookAt(_target.transform);
+
             if (_timeSinceLastAttack < _timeBetweenAttacks) return;
-         
-            _animator.SetTrigger("attack");
+            TriggerAttack();
             _timeSinceLastAttack = 0f;
+        }
+
+        private void TriggerAttack()
+        {
+            _animator.ResetTrigger("stopAttack");
+            _animator.SetTrigger("attack");
         }
 
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, _target.position) < _weaponRange;
+            return Vector3.Distance(transform.position, _target.transform.position) < _weaponRange;
         }
 
-        public void Attack(CombatTarget combatTarget)
+        public void Attack(GameObject combatTarget)
         {
             _actionScheduler.StartAction(this);
-            _target = combatTarget.transform;
-            print("Take that you short, squat peasant!");
+            _target = combatTarget.GetComponent<Health>();
         }
 
         public void Cancel()
         {
+            StopAttack();
             _target = null;
+        }
+
+        private void StopAttack()
+        {
+            _animator.ResetTrigger("attack");
+            _animator.SetTrigger("stopAttack");
         }
 
         //Animation Event
         private void Hit()
         {
-            Health enemyHealth = _target.GetComponent<Health>();
+            if (_target == null) return;
 
-            if (enemyHealth != null) enemyHealth.TakeDamage(_weaponDamage);
+            _target.TakeDamage(_weaponDamage);
         }
     }
 }
