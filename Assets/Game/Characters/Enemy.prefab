@@ -67,6 +67,14 @@ PrefabInstance:
       propertyPath: m_Height
       value: 1.9
       objectReference: {fileID: 0}
+    - target: {fileID: 2630442785884132384, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
+      propertyPath: m_Acceleration
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2630442785884132384, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 5000
+      objectReference: {fileID: 0}
     - target: {fileID: 7924023251329318020, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -79,28 +87,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2340120256528838728, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
   m_PrefabInstance: {fileID: 187335479390773479}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2745147824117576952 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2630442785884132383, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
-  m_PrefabInstance: {fileID: 187335479390773479}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8029431643875925091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 480982df7662d144999e1ad130841fe3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6596459549101456285 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6418431711340059514, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
-  m_PrefabInstance: {fileID: 187335479390773479}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8029431643875925091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17906da5711d68844876c89f85dbde5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8029431643875925091 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7924023251329318020, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
@@ -144,9 +130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4608798356faccf4599d24dd403aed9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mover: {fileID: 2745147824117576952}
-  _fighter: {fileID: 6596459549101456285}
-  chaseDistance: 5
+  _chaseDistance: 5
+  _suspicionTime: 5
+  _waypointDwelTime: 3
+  _waypointTollerance: 1
+  _patrolPath: {fileID: 0}
 --- !u!1001 &875980779867625746
 PrefabInstance:
   m_ObjectHideFlags: 0
