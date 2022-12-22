@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2067900579357027285, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
+      propertyPath: healthPoints
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 2340120256528838728, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -71,6 +75,10 @@ PrefabInstance:
       propertyPath: _weaponRange
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6418431711340059514, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
+      propertyPath: _weaponDamage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7924023251329318020, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
       propertyPath: m_Name
       value: Player
@@ -127,6 +135,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mover: {fileID: 4205449256628306290}
   _fighter: {fileID: 5174404753112223255}
+--- !u!136 &7625398145674120699
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8298512601083898345}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 1.9
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &4162938537305360288
 PrefabInstance:
   m_ObjectHideFlags: 0

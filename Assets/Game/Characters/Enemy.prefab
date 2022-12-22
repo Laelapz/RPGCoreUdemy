@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2067900579357027285, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
       propertyPath: healthPoints
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2340120256528838728, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
       propertyPath: m_RootOrder
@@ -75,6 +75,10 @@ PrefabInstance:
       propertyPath: m_AngularSpeed
       value: 5000
       objectReference: {fileID: 0}
+    - target: {fileID: 6418431711340059514, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
+      propertyPath: _weaponDamage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7924023251329318020, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -134,6 +138,8 @@ MonoBehaviour:
   _suspicionTime: 5
   _waypointDwelTime: 3
   _waypointTollerance: 1
+  _chaseFractionSpeed: 0.29
+  _patrolFractionSpeed: 0.4
   _patrolPath: {fileID: 0}
 --- !u!1001 &875980779867625746
 PrefabInstance:

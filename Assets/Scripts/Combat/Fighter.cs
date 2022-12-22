@@ -34,11 +34,11 @@ namespace RPG.Combat
 
             if (!GetIsInRange())
             {
-                _mover.MoveTo(_target.transform.position);
+                _mover.MoveTo(_target.transform.position, 1f);
             }
             else
             {
-                _mover.Stop();
+                _mover.Cancel();
                 AttackBehaviour();
             }
         }
@@ -80,6 +80,7 @@ namespace RPG.Combat
         public void Cancel()
         {
             StopAttack();
+            _mover.Cancel();
             _target = null;
         }
 

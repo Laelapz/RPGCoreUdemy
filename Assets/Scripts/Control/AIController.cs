@@ -16,8 +16,8 @@ namespace RPG.Control
         [SerializeField] private float _suspicionTime = 3f;
         [SerializeField] private float _waypointDwelTime = 3f;
         [SerializeField] private float _waypointTollerance = 1f;
-        [SerializeField] private float _chaseSpeed = 4.5f;
-        [SerializeField] private float _patrolSpeed = 2.5f;
+        [Range(0, 1)][SerializeField] private float _chaseFractionSpeed = 0.7f;
+        [Range(0, 1)][SerializeField] private float _patrolFractionSpeed = 0.4f;
         [SerializeField] private PatrolPath _patrolPath;
         
         private GameObject _player;
@@ -49,17 +49,14 @@ namespace RPG.Control
             if (InAttackRangeOfPlayer() && _fighter.CanAttack(_player))
             {
                 _timeSinceLastSawPlayer = 0f;
-                _navMeshAgent.speed = _chaseSpeed;
                 AttackBehaviour();
             }
             else if (_timeSinceLastSawPlayer < _suspicionTime)
             {
-                _navMeshAgent.speed = _chaseSpeed;
                 SuspicionBehaviour();
             }
             else
             {
-                _navMeshAgent.speed = _patrolSpeed;
                 PatrolBehaviour();
             }
 
@@ -87,7 +84,7 @@ namespace RPG.Control
             }
 
             if(_timeSinceArrivedAtWaypoint > _waypointDwelTime)
-                _mover.StartMoveAction(nextPosition);
+                _mover.StartMoveAction(nextPosition, _patrolFractionSpeed);
         }
 
         private bool AtWaypoint()
