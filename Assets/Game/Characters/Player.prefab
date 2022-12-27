@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 826445815622241442, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
+      propertyPath: uniqueIdentifier
+      value: player
+      objectReference: {fileID: 0}
     - target: {fileID: 2067900579357027285, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
       propertyPath: healthPoints
       value: 200

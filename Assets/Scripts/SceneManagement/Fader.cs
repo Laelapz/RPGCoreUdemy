@@ -7,13 +7,19 @@ namespace RPG.SceneManagement
     {
         CanvasGroup canvasGroup;
 
-        private void Start()
+        private void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
         }
 
+        public void FadeOutimmediately()
+        {
+            canvasGroup.alpha = 1f;
+        }
+
         public IEnumerator FadeOut(float time)
         {
+            canvasGroup.alpha = 0f;
             while (canvasGroup.alpha < 1)
             {
                canvasGroup.alpha += Time.deltaTime / time;
@@ -23,6 +29,7 @@ namespace RPG.SceneManagement
 
         public IEnumerator FadeIn(float time)
         {
+            canvasGroup.alpha = 1f;
             while (canvasGroup.alpha > 0)
             {
                 canvasGroup.alpha -= Time.deltaTime / time;
