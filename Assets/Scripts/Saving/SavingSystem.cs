@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,28 +27,29 @@ namespace RPG.Saving
             CaptureState(state);
             SaveFile(saveFile, state);
         }
-
         public void Load(string saveFile)
         {
             RestoreState(LoadFile(saveFile));
         }
 
-        public void Delete(string saveFile)
+        private void CaptureState(Dictionary<string, object> state)
         {
-            File.Delete(GetPathFromSaveFile(saveFile));
+            foreach (SaveableEntity saveable in FindObjectsOfType<SaveableEntity>())
+            {
+                state[saveable.GetUniqueIdentifier()] = saveable.CaptureState();
+            }
         }
 
-        private Dictionary<string, object> LoadFile(string saveFile)
+        private void RestoreState(Dictionary<string, object> state)
         {
-            string path = GetPathFromSaveFile(saveFile);
-            if (!File.Exists(path))
+            foreach (SaveableEntity saveable in FindObjectsOfType<SaveableEntity>())
             {
-                return new Dictionary<string, object>();
-            }
-            using (FileStream stream = File.Open(path, FileMode.Open))
-            {
-                BinaryFormatter formatter = new BinaryFormatter();
-                return (Dictionary<string, object>)formatter.Deserialize(stream);
+                string id = saveable.GetUniqueIdentifier();
+               
+                if (state.ContainsKey(id))
+                {
+                    saveable.RestoreState(state[id]);
+                }
             }
         }
 
@@ -65,26 +64,24 @@ namespace RPG.Saving
             }
         }
 
-        private void CaptureState(Dictionary<string, object> state)
+        private Dictionary<string, object> LoadFile(string saveFile)
         {
-            foreach (SaveableEntity saveable in FindObjectsOfType<SaveableEntity>())
-            {
-                state[saveable.GetUniqueIdentifier()] = saveable.CaptureState();
-            }
+            string path = GetPathFromSaveFile(saveFile);
 
-            state["lastSceneBuildIndex"] = SceneManager.GetActiveScene().buildIndex;
+            if (!File.Exists(path)) return new Dictionary<string, object>();
+
+            print("Loading from " + path);
+
+            using (FileStream stream = File.Open(path, FileMode.Open))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                return (Dictionary<string, object>)formatter.Deserialize(stream);
+            }
         }
 
-        private void RestoreState(Dictionary<string, object> state)
+        public void Delete(string saveFile)
         {
-            foreach (SaveableEntity saveable in FindObjectsOfType<SaveableEntity>())
-            {
-                string id = saveable.GetUniqueIdentifier();
-                if (state.ContainsKey(id))
-                {
-                    saveable.RestoreState(state[id]);
-                }
-            }
+            File.Delete(GetPathFromSaveFile(saveFile));
         }
 
         private string GetPathFromSaveFile(string saveFile)

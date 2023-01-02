@@ -573,7 +573,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 712040118293081157, guid: 58dbf7c96e7177348bc1f42f02410857, type: 3}
       propertyPath: uniqueIdentifier
-      value: 9d1cec08-d853-40c0-bd52-0aa63c843cb7
+      value: c877a222-2ee6-4e6c-b59c-2e3b18888160
       objectReference: {fileID: 0}
     - target: {fileID: 2513090341153984687, guid: 58dbf7c96e7177348bc1f42f02410857, type: 3}
       propertyPath: m_RootOrder
@@ -912,7 +912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea9374b509b70f4bba37e4a2ca8cf00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueIdentifier: 7b815f91-0cc8-4ca6-8b22-0c41f5e29401
+  uniqueIdentifier: a408a702-5b41-4287-9385-d50a0e0378ba
 --- !u!1001 &326352919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -996,7 +996,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 712040118293081157, guid: 58dbf7c96e7177348bc1f42f02410857, type: 3}
       propertyPath: uniqueIdentifier
-      value: 472c8b02-48f3-4288-9f9f-284eb4c49f2d
+      value: 8c83b39b-0a21-456a-9cdd-5f48df2bfa35
       objectReference: {fileID: 0}
     - target: {fileID: 2513090341153984687, guid: 58dbf7c96e7177348bc1f42f02410857, type: 3}
       propertyPath: m_RootOrder
@@ -3284,7 +3284,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1549390762}
-  m_LocalRotation: {x: 0.0070189442, y: 0.9870726, z: -0.15363918, w: 0.045094013}
+  m_LocalRotation: {x: 0.0070189387, y: 0.9870726, z: -0.15363918, w: 0.045093976}
   m_LocalPosition: {x: -11.45, y: 22.6, z: -25.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4175,7 +4175,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 712040118293081157, guid: 58dbf7c96e7177348bc1f42f02410857, type: 3}
       propertyPath: uniqueIdentifier
-      value: 94da302e-336d-4a41-a6e4-ab25f62791b4
+      value: 2df19ad1-ee2b-4578-b51b-9fec418a2801
       objectReference: {fileID: 0}
     - target: {fileID: 2513090341153984687, guid: 58dbf7c96e7177348bc1f42f02410857, type: 3}
       propertyPath: m_RootOrder

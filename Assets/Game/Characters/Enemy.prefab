@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 826445815622241442, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
+      propertyPath: uniqueIdentifier
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2067900579357027285, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
       propertyPath: health
       value: 20
@@ -138,7 +142,6 @@ MonoBehaviour:
   _suspicionTime: 5
   _waypointDwelTime: 3
   _waypointTollerance: 1
-  _chaseFractionSpeed: 0.29
   _patrolFractionSpeed: 0.4
   _patrolPath: {fileID: 0}
 --- !u!1001 &875980779867625746
