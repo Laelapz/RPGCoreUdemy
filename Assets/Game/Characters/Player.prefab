@@ -98,7 +98,7 @@ PrefabInstance:
     - target: {fileID: 6418431711340059514, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
       propertyPath: defaultWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: d2e6eb3b9a4a22a42b31d374e05305d2, type: 2}
+      objectReference: {fileID: 11400000, guid: 36b604d9040f88c48b08f739ddc05d1f, type: 2}
     - target: {fileID: 6418431711340059514, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
       propertyPath: handTransform
       value: 
@@ -153,6 +153,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7924023251329318020, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
   m_PrefabInstance: {fileID: 2224202173445444973}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &3352628863118238872
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8298512601083898345}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!136 &7625398145674120699
 CapsuleCollider:
   m_ObjectHideFlags: 0
