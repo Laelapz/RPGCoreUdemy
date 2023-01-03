@@ -38,6 +38,7 @@ namespace RPG.Saving
             {
                 state[saveable.GetUniqueIdentifier()] = saveable.CaptureState();
             }
+            state["lastSceneBuildIndex"] = SceneManager.GetActiveScene().buildIndex;
         }
 
         private void RestoreState(Dictionary<string, object> state)
