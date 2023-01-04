@@ -2,6 +2,7 @@ using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
 using System;
+using System.Security.Cryptography;
 
 namespace RPG.Combat
 {
@@ -106,7 +107,19 @@ namespace RPG.Combat
         {
             if (_target == null) return;
 
-            _target.TakeDamage(currentWeapon.WeaponDamage);
+            if (currentWeapon.HasProjectile())
+            {
+                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, _target);
+            }
+            else
+            {
+                _target.TakeDamage(currentWeapon.WeaponDamage);
+            }
+        }
+
+        private void Shoot()
+        {
+            Hit();
         }
     }
 }

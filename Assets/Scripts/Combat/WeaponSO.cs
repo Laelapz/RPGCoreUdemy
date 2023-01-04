@@ -1,3 +1,5 @@
+using RPG.Core;
+using System;
 using UnityEngine;
 
 namespace RPG.Combat
@@ -14,23 +16,59 @@ namespace RPG.Combat
         [SerializeField] private float _weaponRange = 2f;
         public float WeaponRange => _weaponRange;
 
-        [SerializeField] private bool isRightHanded = true;
+        [SerializeField] private bool _isRightHanded = true;
+        [SerializeField] private bool _isHoming = false;
+        [SerializeField] private Projectile projectile = null;
+
+        const string weaponName = "Weapon";
 
         public void Spawn(Transform rightHand, Transform leftHand,  Animator animator)
         {
+            DestroyOldWeapon(rightHand, leftHand);
+
             if(equippedPrefab != null)
             {
                 Transform hand;
 
-                hand = isRightHanded ? rightHand : leftHand;
+                hand = GetTransform(rightHand, leftHand);
 
-                Instantiate(equippedPrefab, hand);
+                GameObject weapon = Instantiate(equippedPrefab, hand);
+                weapon.name = weaponName;
             }
 
-            if(animatorOverride != null)
+            if (animatorOverride != null)
             {
                 animator.runtimeAnimatorController = animatorOverride;
             }
+        }
+
+        private void DestroyOldWeapon(Transform rightHand, Transform leftHand)
+        {
+            Transform oldWeapon = rightHand.Find(weaponName);
+            if(oldWeapon == null)
+            {
+                oldWeapon = leftHand.Find(weaponName);
+            }
+            if(oldWeapon == null) return;
+
+            oldWeapon.name = "Destroying";
+            Destroy(oldWeapon.gameObject);
+        }
+
+        private Transform GetTransform(Transform rightHand, Transform leftHand)
+        {
+            return _isRightHanded ? rightHand : leftHand;
+        }
+
+        public bool HasProjectile()
+        {
+            return projectile != null;
+        }
+
+        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target)
+        {
+            Projectile projectileInstante = Instantiate(projectile, GetTransform(rightHand, leftHand).position, Quaternion.identity);
+            projectileInstante.SetTarget(target, _weaponDamage, _isHoming);
         }
     }
 }

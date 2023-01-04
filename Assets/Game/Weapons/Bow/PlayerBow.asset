@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f646c624a7e8f143b3fd247d3cf0c3c, type: 3}
-  m_Name: Bow
+  m_Name: PlayerBow
   m_EditorClassIdentifier: 
   animatorOverride: {fileID: 22100000, guid: 87450cb827a81d9489de64649b5da8f6, type: 2}
   equippedPrefab: {fileID: 1504518056053970023, guid: 90cdc20106febb04a84e66f998429562, type: 3}
@@ -18,4 +18,4 @@ MonoBehaviour:
   _weaponRange: 8
   _isRightHanded: 0
   _isHoming: 0
-  projectile: {fileID: 1717266736383279163, guid: a2cb0423288334a488bc87bf4a2c6482, type: 3}
+  projectile: {fileID: 5920012083424375714, guid: f0201359b6cc32f47a84938e4e452c0a, type: 3}
