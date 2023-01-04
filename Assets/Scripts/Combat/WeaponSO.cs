@@ -14,11 +14,17 @@ namespace RPG.Combat
         [SerializeField] private float _weaponRange = 2f;
         public float WeaponRange => _weaponRange;
 
-        public void Spawn(Transform handTransform, Animator animator)
+        [SerializeField] private bool isRightHanded = true;
+
+        public void Spawn(Transform rightHand, Transform leftHand,  Animator animator)
         {
             if(equippedPrefab != null)
             {
-                Instantiate(equippedPrefab, handTransform);
+                Transform hand;
+
+                hand = isRightHanded ? rightHand : leftHand;
+
+                Instantiate(equippedPrefab, hand);
             }
 
             if(animatorOverride != null)

@@ -95,6 +95,14 @@ PrefabInstance:
       propertyPath: handTransform
       value: 
       objectReference: {fileID: 875980779867483676}
+    - target: {fileID: 6418431711340059514, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
+      propertyPath: leftHandTransform
+      value: 
+      objectReference: {fileID: 875980779867541022}
+    - target: {fileID: 6418431711340059514, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
+      propertyPath: rightHandTransform
+      value: 
+      objectReference: {fileID: 875980779867483676}
     - target: {fileID: 7924023251329318020, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -216,5 +224,10 @@ PrefabInstance:
 --- !u!4 &875980779867483676 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 423694, guid: 30cf93deff988e74e88a144bd2127c18, type: 3}
+  m_PrefabInstance: {fileID: 875980779867625746}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &875980779867541022 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 481036, guid: 30cf93deff988e74e88a144bd2127c18, type: 3}
   m_PrefabInstance: {fileID: 875980779867625746}
   m_PrefabAsset: {fileID: 0}
