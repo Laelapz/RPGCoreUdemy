@@ -9,10 +9,11 @@ namespace RPG.Combat
     public class Projectile : MonoBehaviour
     {
         [SerializeField] float speed = 1f;
+        [SerializeField] private bool _isHoming = false;
+        [SerializeField] private GameObject hitEffect = null;
 
         private Health _target = null;
         private float _damage = 0;
-        private bool _isHoming = false;
 
         private void Start()
         {
@@ -21,7 +22,9 @@ namespace RPG.Combat
 
         private void Update()
         {
-            if (_target != null && _isHoming) transform.LookAt(GetAimLocation());
+            if (_target == null) return;
+
+            if (!_target.IsDead() && _isHoming) transform.LookAt(GetAimLocation());
             var direction = Vector3.forward * speed * Time.deltaTime;
             transform.Translate(direction);
         }
@@ -45,7 +48,10 @@ namespace RPG.Combat
         {
             if(other.GetComponent<Health>() != _target) return;
             _target.TakeDamage(_damage);
-
+            if(hitEffect != null)
+            {
+                Instantiate(hitEffect, GetAimLocation(), Quaternion.identity);
+            }
             Destroy(gameObject);
         }
     }

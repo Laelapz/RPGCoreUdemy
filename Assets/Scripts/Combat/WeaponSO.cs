@@ -69,6 +69,7 @@ namespace RPG.Combat
         {
             Projectile projectileInstante = Instantiate(projectile, GetTransform(rightHand, leftHand).position, Quaternion.identity);
             projectileInstante.SetTarget(target, _weaponDamage, _isHoming);
+            Destroy(projectileInstante, 20f);
         }
     }
 }
