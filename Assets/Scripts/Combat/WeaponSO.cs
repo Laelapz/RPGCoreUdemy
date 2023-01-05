@@ -36,9 +36,15 @@ namespace RPG.Combat
                 weapon.name = weaponName;
             }
 
+            var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
+
             if (animatorOverride != null)
             {
                 animator.runtimeAnimatorController = animatorOverride;
+            }
+            else if (overrideController != null)
+            {
+                animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;
             }
         }
 
@@ -67,9 +73,8 @@ namespace RPG.Combat
 
         public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target)
         {
-            Projectile projectileInstante = Instantiate(projectile, GetTransform(rightHand, leftHand).position, Quaternion.identity);
-            projectileInstante.SetTarget(target, _weaponDamage, _isHoming);
-            Destroy(projectileInstante, 20f);
+            Projectile projectileInstance = Instantiate(projectile, GetTransform(rightHand, leftHand).position, Quaternion.identity);
+            projectileInstance.SetTarget(target, _weaponDamage, _isHoming);
         }
     }
 }

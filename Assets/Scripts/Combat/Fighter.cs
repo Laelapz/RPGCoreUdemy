@@ -3,10 +3,11 @@ using RPG.Movement;
 using RPG.Core;
 using System;
 using System.Security.Cryptography;
+using RPG.Saving;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction
+    public class Fighter : MonoBehaviour, IAction, ISaveable
     {
         [SerializeField] private float _timeBetweenAttacks = 1f;
         [SerializeField] private Transform rightHandTransform = null;
@@ -22,12 +23,13 @@ namespace RPG.Combat
 
         private float _timeSinceLastAttack = Mathf.Infinity;
 
-        private void Start()
+        private void Awake()
         {
             _mover = GetComponent<Mover>();
             _actionScheduler = GetComponent<ActionScheduler>();
             _animator = GetComponent<Animator>();
-            EquipWeapon(defaultWeapon);
+            
+            if(currentWeapon == null) EquipWeapon(defaultWeapon);
         }
 
         public void EquipWeapon(WeaponSO weapon)
@@ -120,6 +122,18 @@ namespace RPG.Combat
         private void Shoot()
         {
             Hit();
+        }
+
+        public object CaptureState()
+        {
+            return currentWeapon.name;
+        }
+
+        public void RestoreState(object state)
+        {
+            string weaponName = (string)state;
+            WeaponSO weapon = Resources.Load<WeaponSO>(weaponName);
+            EquipWeapon(weapon);
         }
     }
 }

@@ -8,9 +8,12 @@ namespace RPG.Combat
 {
     public class Projectile : MonoBehaviour
     {
-        [SerializeField] float speed = 1f;
+        [SerializeField] float _speed = 12f;
         [SerializeField] private bool _isHoming = false;
-        [SerializeField] private GameObject hitEffect = null;
+        [SerializeField] private GameObject _hitEffect = null;
+        [SerializeField] private float _maxLifeTime = 10f;
+        [SerializeField] private GameObject[] _destroyOnHit;
+        [SerializeField] private float _lifeAfterImpact = 2f;
 
         private Health _target = null;
         private float _damage = 0;
@@ -25,7 +28,7 @@ namespace RPG.Combat
             if (_target == null) return;
 
             if (!_target.IsDead() && _isHoming) transform.LookAt(GetAimLocation());
-            var direction = Vector3.forward * speed * Time.deltaTime;
+            var direction = Vector3.forward * _speed * Time.deltaTime;
             transform.Translate(direction);
         }
 
@@ -34,6 +37,7 @@ namespace RPG.Combat
             _target = target;
             _damage = damage;
             _isHoming = isHoming;
+            Destroy(gameObject, _maxLifeTime);
         }
 
         private Vector3 GetAimLocation()
@@ -48,11 +52,20 @@ namespace RPG.Combat
         {
             if(other.GetComponent<Health>() != _target) return;
             _target.TakeDamage(_damage);
-            if(hitEffect != null)
+
+            _speed = 0f;
+
+            if(_hitEffect != null)
             {
-                Instantiate(hitEffect, GetAimLocation(), Quaternion.identity);
+                Instantiate(_hitEffect, GetAimLocation(), Quaternion.identity);
             }
-            Destroy(gameObject);
+
+            foreach(GameObject toDestroy in _destroyOnHit)
+            {
+                Destroy(toDestroy);
+            }
+
+            Destroy(gameObject, _lifeAfterImpact);
         }
     }
 }

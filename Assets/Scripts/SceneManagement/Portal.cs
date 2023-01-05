@@ -55,7 +55,7 @@ namespace RPG.SceneManagement
             yield return new WaitForSeconds(_fadeWaitTime);
 
             yield return fader.FadeIn(_fadeInTime);
-            Destroy(this);
+            Destroy(gameObject);
         }
 
         private void UpdatePlayer(Portal otherPortal)

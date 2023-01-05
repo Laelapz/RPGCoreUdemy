@@ -4918,9 +4918,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7375c2b43ab7bb544982316df85e4beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  _speed: 6
   _isHoming: 0
-  hitEffect: {fileID: 2302457091093092515, guid: 69d1b1037536b504884c93bb73d662db, type: 3}
+  _hitEffect: {fileID: 2302457091093092515, guid: 69d1b1037536b504884c93bb73d662db, type: 3}
+  _maxLifeTime: 10
+  _destroyOnHit:
+  - {fileID: 3056256930331199991}
+  _lifeAfterImpact: 0.2
 --- !u!65 &6285480710088120606
 BoxCollider:
   m_ObjectHideFlags: 0
