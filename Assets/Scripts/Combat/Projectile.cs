@@ -1,7 +1,4 @@
-using RPG.Core;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using RPG.Attributes;
 using UnityEngine;
 
 namespace RPG.Combat
@@ -16,6 +13,7 @@ namespace RPG.Combat
         [SerializeField] private float _lifeAfterImpact = 2f;
 
         private Health _target = null;
+        private GameObject _instigator = null;
         private float _damage = 0;
 
         private void Start()
@@ -32,11 +30,12 @@ namespace RPG.Combat
             transform.Translate(direction);
         }
 
-        public void SetTarget(Health target, float damage, bool isHoming)
+        public void SetTarget(Health target, GameObject instigator, float damage, bool isHoming)
         {
             _target = target;
             _damage = damage;
             _isHoming = isHoming;
+            _instigator = instigator;
             Destroy(gameObject, _maxLifeTime);
         }
 
@@ -51,7 +50,7 @@ namespace RPG.Combat
         private void OnTriggerEnter(Collider other)
         {
             if(other.GetComponent<Health>() != _target) return;
-            _target.TakeDamage(_damage);
+            _target.TakeDamage(_instigator, _damage);
 
             _speed = 0f;
 

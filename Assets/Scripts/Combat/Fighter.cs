@@ -1,9 +1,8 @@
 using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
-using System;
-using System.Security.Cryptography;
 using RPG.Saving;
+using RPG.Attributes;
 
 namespace RPG.Combat
 {
@@ -37,6 +36,11 @@ namespace RPG.Combat
             currentWeapon = weapon;
 
             weapon.Spawn(rightHandTransform, leftHandTransform, _animator);
+        }
+
+        public Health GetTarget()
+        {
+            return _target;
         }
 
         private void Update()
@@ -111,11 +115,11 @@ namespace RPG.Combat
 
             if (currentWeapon.HasProjectile())
             {
-                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, _target);
+                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, _target, gameObject);
             }
             else
             {
-                _target.TakeDamage(currentWeapon.WeaponDamage);
+                _target.TakeDamage(gameObject, currentWeapon.WeaponDamage);
             }
         }
 

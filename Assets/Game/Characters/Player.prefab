@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: uniqueIdentifier
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 1577965932265096206, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
+      propertyPath: characterClass
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2067900579357027285, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
       propertyPath: healthPoints
       value: 200
@@ -205,6 +209,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mover: {fileID: 4205449256628306290}
   _fighter: {fileID: 5174404753112223255}
+--- !u!114 &3507400266919850639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8298512601083898345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e903199775bfd9143a8f3b93e6fa19d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  experiencePoints: 0
 --- !u!1001 &4162938537305360288
 PrefabInstance:
   m_ObjectHideFlags: 0
