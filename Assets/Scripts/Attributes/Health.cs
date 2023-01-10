@@ -7,15 +7,30 @@ namespace RPG.Attributes
 {
     public class Health : MonoBehaviour, ISaveable
     {
-        public float healthPoints = 100f;
+        private float _healthPoints = -1f;
 
         private bool _isDead = false;
         private BaseStats _stats;
 
-        private void Start()
+        private void Awake()
         {
             _stats = GetComponent<BaseStats>();
-            healthPoints = _stats.GetStat(Stat.Health); ;
+        }
+
+        private void OnEnable()
+        {
+            if(_stats != null) _stats.OnLevelUpEvent += LevelUpHeal;
+        }
+
+        private void OnDisable()
+        {
+            if (_stats != null) _stats.OnLevelUpEvent -= LevelUpHeal;
+        }
+
+        private void Start()
+        {
+            if(GetCurrentHealth() < 0) _healthPoints = GetMaxHealth();
+            if (transform.CompareTag("Player")) print("Current health from start: " + _healthPoints);
         }
 
         public bool IsDead()
@@ -25,19 +40,38 @@ namespace RPG.Attributes
 
         public void TakeDamage(GameObject instigator, float damage)
         {
-            healthPoints = Mathf.Max(healthPoints - damage, 0);
+            _healthPoints = Mathf.Max(_healthPoints - damage, 0);
 
-            if(healthPoints == 0)
+            if(GetCurrentHealth() == 0)
             {
                 Die();
                 AwardExperience(instigator);
             }
         }
 
+        public void LevelUpHeal()
+        {
+            HealHealth(_stats.GetStat(Stat.Health) - GetCurrentHealth());
+        }
+
+        public void HealHealth(float amount)
+        {
+            _healthPoints += amount;
+        }
 
         public float GetPercentageHealth()
         {
-            return 100 * (healthPoints / _stats.GetStat(Stat.Health));
+            return 100 * (GetCurrentHealth() / GetMaxHealth());
+        }
+        
+        public float GetCurrentHealth()
+        {
+            return _healthPoints;
+        }
+
+        public float GetMaxHealth()
+        {
+            return _stats.GetStat(Stat.Health);
         }
 
         private void Die()
@@ -60,7 +94,7 @@ namespace RPG.Attributes
 
         public object CaptureState()
         {
-            return healthPoints;
+            return _healthPoints;
         }
 
         public void RestoreState(object state)
@@ -71,7 +105,7 @@ namespace RPG.Attributes
             }
             else
             {
-                if(healthPoints == 0)
+                if(GetCurrentHealth() == 0)
                 {
                     _isDead = false;
                     GetComponent<Animator>().SetTrigger("revive");
@@ -79,7 +113,8 @@ namespace RPG.Attributes
                 }
             }
 
-            healthPoints = (float)state;
+            _healthPoints = (float)state;
+            if (transform.CompareTag("Player")) print("Current health from RestoreState: " + _healthPoints);
         }
     }
 }

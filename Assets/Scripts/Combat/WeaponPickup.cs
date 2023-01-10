@@ -9,7 +9,7 @@ namespace RPG.Combat
         [SerializeField] private float respawnTime = 5f;
         SphereCollider _collider;
 
-        private void Start()
+        private void Awake()
         {
             _collider = GetComponent<SphereCollider>();
         }

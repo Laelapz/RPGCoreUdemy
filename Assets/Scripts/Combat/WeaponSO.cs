@@ -12,6 +12,10 @@ namespace RPG.Combat
         [SerializeField] private float _weaponDamage = 5f;
         public float WeaponDamage => _weaponDamage;
 
+
+        [SerializeField] private float _percentageBonus = 10f;
+        public float PercentageBonus => _percentageBonus;
+
         [SerializeField] private float _weaponRange = 2f;
         public float WeaponRange => _weaponRange;
 
@@ -70,10 +74,12 @@ namespace RPG.Combat
             return projectile != null;
         }
 
-        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target, GameObject instigator)
+        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target, GameObject instigator, float calculatedDamage)
         {
             Projectile projectileInstance = Instantiate(projectile, GetTransform(rightHand, leftHand).position, Quaternion.identity);
-            projectileInstance.SetTarget(target, instigator, _weaponDamage, _isHoming);
+
+            //Adicionar o dano extra da arma "currentWeapon.WeaponDamage"
+            projectileInstance.SetTarget(target, instigator, calculatedDamage, _isHoming);
         }
     }
 }

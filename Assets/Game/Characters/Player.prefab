@@ -13,12 +13,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1577965932265096206, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
       propertyPath: startingLevel
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1577965932265096206, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
       propertyPath: characterClass
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1577965932265096206, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
+      propertyPath: _shouldUseModifiers
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577965932265096206, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
+      propertyPath: levelUpParticleEffect
+      value: 
+      objectReference: {fileID: 1955657374154706307, guid: 8ed5087e6e936f2449c8a5c4513bf65f, type: 3}
     - target: {fileID: 2067900579357027285, guid: 7fd3b94ea0759a443b688b231cbb1035, type: 3}
       propertyPath: healthPoints
       value: 200

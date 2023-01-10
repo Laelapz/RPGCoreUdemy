@@ -10,10 +10,9 @@ namespace RPG.Control
         [SerializeField] private Mover _mover;
         [SerializeField] private Fighter _fighter;
         private Health _health;
-
         private Camera _mainCamera;
 
-        private void Start()
+        private void Awake()
         {
             _mainCamera = Camera.main;
             _health = GetComponent<Health>();

@@ -20,7 +20,7 @@ namespace RPG.Movement
         
         private float _maxSpeed = 6.3f;
 
-        private void Start()
+        private void Awake()
         {
             _myNavMeshAgent = GetComponent<NavMeshAgent>();
             _myAnimator = GetComponent<Animator>();

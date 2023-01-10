@@ -3,10 +3,12 @@ using RPG.Movement;
 using RPG.Core;
 using RPG.Saving;
 using RPG.Attributes;
+using RPG.Stats;
+using System.Collections.Generic;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction, ISaveable
+    public class Fighter : MonoBehaviour, IAction, ISaveable, IModifierProvider
     {
         [SerializeField] private float _timeBetweenAttacks = 1f;
         [SerializeField] private Transform rightHandTransform = null;
@@ -19,6 +21,7 @@ namespace RPG.Combat
 
         private Health _target;
         private Mover _mover;
+        private BaseStats _baseStats;
 
         private float _timeSinceLastAttack = Mathf.Infinity;
 
@@ -27,8 +30,10 @@ namespace RPG.Combat
             _mover = GetComponent<Mover>();
             _actionScheduler = GetComponent<ActionScheduler>();
             _animator = GetComponent<Animator>();
-            
-            if(currentWeapon == null) EquipWeapon(defaultWeapon);
+            _baseStats = GetComponent<BaseStats>();
+
+
+            if (currentWeapon == null) EquipWeapon(defaultWeapon);
         }
 
         public void EquipWeapon(WeaponSO weapon)
@@ -108,18 +113,33 @@ namespace RPG.Combat
             _animator.SetTrigger("stopAttack");
         }
 
+        public IEnumerable<float> GetAdditiveModifiers(Stat stat)
+        {
+            if (stat == Stat.Damage) yield return currentWeapon.WeaponDamage;
+        }
+
+        public IEnumerable<float> GetPercentageModifiers(Stat stat)
+        {
+            if (stat == Stat.Damage) yield return currentWeapon.PercentageBonus;
+        }
+
         //Animation Event
         private void Hit()
         {
             if (_target == null) return;
 
+            //
+            //Adicionar o dano extra da arma nos dois ataques "currentWeapon.WeaponDamage"
+            //
+
+            print(_baseStats.GetStat(Stat.Damage));
             if (currentWeapon.HasProjectile())
             {
-                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, _target, gameObject);
+                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, _target, gameObject, _baseStats.GetStat(Stat.Damage));
             }
             else
             {
-                _target.TakeDamage(gameObject, currentWeapon.WeaponDamage);
+                _target.TakeDamage(gameObject, _baseStats.GetStat(Stat.Damage));
             }
         }
 
