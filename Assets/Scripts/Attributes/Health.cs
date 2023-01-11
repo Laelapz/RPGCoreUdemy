@@ -2,12 +2,13 @@ using RPG.Saving;
 using RPG.Stats;
 using RPG.Core;
 using UnityEngine;
+using GameDevTV.Utils;
 
 namespace RPG.Attributes
 {
     public class Health : MonoBehaviour, ISaveable
     {
-        private float _healthPoints = -1f;
+        private LazyValue<float> _healthPoints;
 
         private bool _isDead = false;
         private BaseStats _stats;
@@ -15,6 +16,7 @@ namespace RPG.Attributes
         private void Awake()
         {
             _stats = GetComponent<BaseStats>();
+            _healthPoints = new LazyValue<float>(GetMaxHealth);
         }
 
         private void OnEnable()
@@ -29,8 +31,7 @@ namespace RPG.Attributes
 
         private void Start()
         {
-            if(GetCurrentHealth() < 0) _healthPoints = GetMaxHealth();
-            if (transform.CompareTag("Player")) print("Current health from start: " + _healthPoints);
+            _healthPoints.ForceInit();
         }
 
         public bool IsDead()
@@ -40,7 +41,7 @@ namespace RPG.Attributes
 
         public void TakeDamage(GameObject instigator, float damage)
         {
-            _healthPoints = Mathf.Max(_healthPoints - damage, 0);
+            _healthPoints.value = Mathf.Max(_healthPoints.value - damage, 0);
 
             if(GetCurrentHealth() == 0)
             {
@@ -56,7 +57,7 @@ namespace RPG.Attributes
 
         public void HealHealth(float amount)
         {
-            _healthPoints += amount;
+            _healthPoints.value += amount;
         }
 
         public float GetPercentageHealth()
@@ -66,7 +67,7 @@ namespace RPG.Attributes
         
         public float GetCurrentHealth()
         {
-            return _healthPoints;
+            return _healthPoints.value;
         }
 
         public float GetMaxHealth()
@@ -94,7 +95,7 @@ namespace RPG.Attributes
 
         public object CaptureState()
         {
-            return _healthPoints;
+            return _healthPoints.value;
         }
 
         public void RestoreState(object state)
@@ -113,7 +114,7 @@ namespace RPG.Attributes
                 }
             }
 
-            _healthPoints = (float)state;
+            _healthPoints.value = (float)state;
             if (transform.CompareTag("Player")) print("Current health from RestoreState: " + _healthPoints);
         }
     }

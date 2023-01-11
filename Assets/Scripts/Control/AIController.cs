@@ -1,3 +1,4 @@
+using GameDevTV.Utils;
 using RPG.Attributes;
 using RPG.Combat;
 using RPG.Core;
@@ -25,7 +26,7 @@ namespace RPG.Control
         private Fighter _fighter;
         private NavMeshAgent _navMeshAgent;
 
-        private Vector3 _guardPosition;
+        private LazyValue<Vector3> _guardPosition;
         private int _currentWaypointIndex = 0;
         private float _timeSinceLastSawPlayer = Mathf.Infinity;
         private float _timeSinceArrivedAtWaypoint = Mathf.Infinity;
@@ -37,11 +38,18 @@ namespace RPG.Control
             _health = GetComponent<Health>();
             _mover = GetComponent<Mover>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
+            _guardPosition = new LazyValue<Vector3>(InitializePosition);
+        }
+
+        private Vector3 InitializePosition()
+        {
+            _guardPosition.value = transform.position;
+            return transform.position;
         }
 
         private void Start()
         {
-            _guardPosition = transform.position;
+            _guardPosition.ForceInit();
         }
 
         private void Update()
@@ -73,7 +81,7 @@ namespace RPG.Control
 
         private void PatrolBehaviour()
         {
-            Vector3 nextPosition = _guardPosition;
+            Vector3 nextPosition = _guardPosition.value;
 
             if(_patrolPath != null)
             {

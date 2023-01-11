@@ -5,6 +5,7 @@ using RPG.Saving;
 using RPG.Attributes;
 using RPG.Stats;
 using System.Collections.Generic;
+using GameDevTV.Utils;
 
 namespace RPG.Combat
 {
@@ -14,7 +15,7 @@ namespace RPG.Combat
         [SerializeField] private Transform rightHandTransform = null;
         [SerializeField] private Transform leftHandTransform = null;
         [SerializeField] private WeaponSO defaultWeapon = null;
-        private WeaponSO currentWeapon = null;
+        private LazyValue<WeaponSO> currentWeapon = null;
 
         private ActionScheduler _actionScheduler;
         private Animator _animator;
@@ -32,14 +33,28 @@ namespace RPG.Combat
             _animator = GetComponent<Animator>();
             _baseStats = GetComponent<BaseStats>();
 
+            currentWeapon = new LazyValue<WeaponSO>(SetupDefaultWeapon);
+        }
 
-            if (currentWeapon == null) EquipWeapon(defaultWeapon);
+        private void Start()
+        {
+            currentWeapon.ForceInit();
+        }
+
+        private WeaponSO SetupDefaultWeapon()
+        {
+            AttachWeapon(defaultWeapon);
+            return defaultWeapon;
         }
 
         public void EquipWeapon(WeaponSO weapon)
         {
-            currentWeapon = weapon;
+            currentWeapon.value = weapon;
+            AttachWeapon(weapon);
+        }
 
+        private void AttachWeapon(WeaponSO weapon)
+        {
             weapon.Spawn(rightHandTransform, leftHandTransform, _animator);
         }
 
@@ -91,7 +106,7 @@ namespace RPG.Combat
 
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, _target.transform.position) < currentWeapon.WeaponRange;
+            return Vector3.Distance(transform.position, _target.transform.position) < currentWeapon.value.WeaponRange;
         }
 
         public void Attack(GameObject combatTarget)
@@ -115,12 +130,12 @@ namespace RPG.Combat
 
         public IEnumerable<float> GetAdditiveModifiers(Stat stat)
         {
-            if (stat == Stat.Damage) yield return currentWeapon.WeaponDamage;
+            if (stat == Stat.Damage) yield return currentWeapon.value.WeaponDamage;
         }
 
         public IEnumerable<float> GetPercentageModifiers(Stat stat)
         {
-            if (stat == Stat.Damage) yield return currentWeapon.PercentageBonus;
+            if (stat == Stat.Damage) yield return currentWeapon.value.PercentageBonus;
         }
 
         //Animation Event
@@ -133,9 +148,9 @@ namespace RPG.Combat
             //
 
             print(_baseStats.GetStat(Stat.Damage));
-            if (currentWeapon.HasProjectile())
+            if (currentWeapon.value.HasProjectile())
             {
-                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, _target, gameObject, _baseStats.GetStat(Stat.Damage));
+                currentWeapon.value.LaunchProjectile(rightHandTransform, leftHandTransform, _target, gameObject, _baseStats.GetStat(Stat.Damage));
             }
             else
             {
@@ -150,7 +165,7 @@ namespace RPG.Combat
 
         public object CaptureState()
         {
-            return currentWeapon.name;
+            return currentWeapon.value.name;
         }
 
         public void RestoreState(object state)
