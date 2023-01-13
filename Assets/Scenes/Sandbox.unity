@@ -3599,7 +3599,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1549390762}
-  m_LocalRotation: {x: 0.0070189442, y: 0.9870726, z: -0.15363918, w: 0.045094013}
+  m_LocalRotation: {x: 0.0070189387, y: 0.9870726, z: -0.15363918, w: 0.045093976}
   m_LocalPosition: {x: -11.45, y: 22.6, z: -25.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5045,6 +5045,10 @@ PrefabInstance:
     - target: {fileID: 946217783292477107, guid: 2a3b547f1b9f3d243a5e412191ca766e, type: 3}
       propertyPath: m_LocalPosition.y
       value: 22.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 3596909804396782894, guid: 2a3b547f1b9f3d243a5e412191ca766e, type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3712539363316817904, guid: 2a3b547f1b9f3d243a5e412191ca766e, type: 3}
       propertyPath: m_LocalPosition.x
