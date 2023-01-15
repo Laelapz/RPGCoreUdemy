@@ -7,16 +7,18 @@ namespace RPG.UI.DamageText
     {
         [SerializeField] private DamageText damageTextPrefab = null;
 
-        void Start()
+        private Vector3 GetOffset()
         {
-            float num = Random.Range(1, 100);
-            Spawn(num);
+            Vector3 pos = transform.position;
+            pos.x += Random.Range(-0.3f, 0.4f);
+            pos.y += Random.Range(-0.1f, 0.2f);
+            return pos;
         }
 
-        public void Spawn(float damageTextValue)
+        public void Spawn(float[] data)
         {
-            DamageText damageTextGameObject = Instantiate<DamageText>(damageTextPrefab, transform);
-            damageTextGameObject.SetText(damageTextValue.ToString());
+            DamageText damageTextGameObject = Instantiate<DamageText>(damageTextPrefab, GetOffset(), Quaternion.identity);
+            damageTextGameObject.SetText(data[0].ToString());
         }
     }
 

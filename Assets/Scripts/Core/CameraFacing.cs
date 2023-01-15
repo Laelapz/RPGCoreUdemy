@@ -1,3 +1,4 @@
+using RPG.Attributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,9 +13,8 @@ namespace RPG.Core
         {
             _mainCamera = Camera.main;
         }
-
-        // Update is called once per frame
-        void Update()
+        
+        void LateUpdate()
         {
             transform.forward = _mainCamera.transform.forward;
         }

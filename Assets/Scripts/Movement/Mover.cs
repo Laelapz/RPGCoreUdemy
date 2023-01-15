@@ -71,10 +71,8 @@ namespace RPG.Movement
         public void RestoreState(object state)
         {
             MoverSaveData moverSaveData = (MoverSaveData)state;
-            GetComponent<NavMeshAgent>().enabled = false;
-            transform.position = moverSaveData.position.ToVector();
+            GetComponent<NavMeshAgent>().Warp(moverSaveData.position.ToVector());
             transform.eulerAngles = moverSaveData.rotation.ToVector();
-            GetComponent<NavMeshAgent>().enabled = true;
         }
 
         [Serializable]

@@ -1,5 +1,6 @@
 using RPG.Attributes;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RPG.Combat
 {
@@ -12,12 +13,15 @@ namespace RPG.Combat
         [SerializeField] private GameObject[] _destroyOnHit;
         [SerializeField] private float _lifeAfterImpact = 2f;
 
+        [SerializeField] UnityEvent onHit;
+
         private Health _target = null;
         private GameObject _instigator = null;
         private float _damage = 0;
 
         private void Start()
         {
+
             transform.LookAt(GetAimLocation());
         }
 
@@ -51,6 +55,7 @@ namespace RPG.Combat
         {
             if(other.GetComponent<Health>() != _target) return;
             _target.TakeDamage(_instigator, _damage);
+            onHit.Invoke();
 
             _speed = 0f;
 
