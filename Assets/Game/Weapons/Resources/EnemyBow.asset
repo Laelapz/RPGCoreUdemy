@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: EnemyBow
   m_EditorClassIdentifier: 
   animatorOverride: {fileID: 22100000, guid: 87450cb827a81d9489de64649b5da8f6, type: 2}
-  equippedPrefab: {fileID: 1504518056053970023, guid: 90cdc20106febb04a84e66f998429562, type: 3}
+  equippedPrefab: {fileID: 3746883396826417115, guid: 90cdc20106febb04a84e66f998429562, type: 3}
   _weaponDamage: 4
+  _percentageBonus: 10
   _weaponRange: 8
   _isRightHanded: 0
   _isHoming: 0

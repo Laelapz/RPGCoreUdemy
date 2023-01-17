@@ -62,7 +62,7 @@ namespace RPG.SceneManagement
             yield return new WaitForSeconds(_fadeWaitTime);
             fader.FadeIn(_fadeInTime);
 
-            playerController.enabled = true;
+            newPlayerController.enabled = true;
             Destroy(gameObject);
         }
 
