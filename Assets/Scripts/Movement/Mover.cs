@@ -4,13 +4,14 @@ using UnityEngine.AI;
 using RPG.Saving;
 using System;
 using RPG.Attributes;
+using RPG.Control;
 
 namespace RPG.Movement
 {
     public class Mover : MonoBehaviour, IAction, ISaveable
     {
         [SerializeField] private Transform targetPosition;
-
+        [SerializeField] private float maxNavPathLength = 40f;
 
         private ActionScheduler _actionScheduler;
 
@@ -39,6 +40,32 @@ namespace RPG.Movement
         {
             _actionScheduler.StartAction(this);
             MoveTo(destination, speedFraction);
+        }
+
+        public bool CanMoveTo(Vector3 position)
+        {
+            NavMeshPath path = new NavMeshPath();
+            bool hasPath = NavMesh.CalculatePath(transform.position, position, NavMesh.AllAreas, path);
+
+            if (!hasPath) return false;
+            if (path.status != NavMeshPathStatus.PathComplete) return false;
+            if (GetPathLength(path) > maxNavPathLength) return false;
+
+            return true;
+        }
+
+        private float GetPathLength(NavMeshPath path)
+        {
+            Vector3 lastPos = transform.position;
+            float totalDistance = 0f;
+            foreach (Vector3 pos in path.corners)
+            {
+                float distance = (lastPos - pos).magnitude;
+                totalDistance += distance;
+                lastPos = pos;
+            }
+
+            return totalDistance;
         }
 
         public void MoveTo(Vector3 destination, float speedFraction)
